@@ -11,15 +11,11 @@ class ResponsiveScaffold extends StatelessWidget {
     final isDesktop = size.width > 1024;
 
     return Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-              maxWidth: isDesktop ? 800 : (isTablet ? 600 : size.width),
-            ),
-            child: child,
-          ),
+      body: ConstrainedBox(
+        constraints: BoxConstraints(
+          maxWidth: isDesktop ? 800 : (isTablet ? 600 : size.width),
         ),
+        child: child,
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:ayurvedic_centre/view/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import '../../core/api_client.dart';
@@ -22,37 +23,48 @@ class LoginViewModel extends ChangeNotifier {
     return null;
   }
 
-  Future<bool> login() async {
-    final user = usernameController.text.trim();
-    final pass = passwordController.text.trim();
+Future<bool> login(BuildContext context) async {
+  final user = usernameController.text.trim();
+  final pass = passwordController.text.trim();
 
-    if (validateUsername(user) != null || validatePassword(pass) != null) {
-      return false;
-    }
-
-    _isLoading = true;
-    notifyListeners();
-
-    try {
-      final loginModel = await _repo.login(user, pass);
-
-      if (loginModel.status == true && loginModel.token != null) {
-        final box = Hive.box("app");
-        await box.put("token", loginModel.token);
-        await box.put("user", loginModel.userDetails?.toJson());
-
-        ApiClient().init();
-
-        return true; // ✅ success
-      } else {
-        return false;
-      }
-    } catch (e) {
-      debugPrint("Login error: $e");
-      return false;
-    } finally {
-      _isLoading = false;
-      notifyListeners();
-    }
+  if (validateUsername(user) != null || validatePassword(pass) != null) {
+    return false;
   }
+
+  _isLoading = true;
+  notifyListeners();
+
+  try {
+    final value = await _repo.login(user, pass);
+
+    final box = Hive.box("settings");
+    await box.put("token", value.token);
+  
+
+    ApiClient().init();
+
+    if (value.status == true) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const HomeScreen()),
+      );
+      return true;
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(value.message ?? "Login failed")),
+      );
+      return false;
+    }
+  } catch (e) {
+    debugPrint("Login error: $e");
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Error: $e")),
+    );
+    return false;
+  } finally {
+    _isLoading = false;
+    notifyListeners();
+  }
+}
+
 }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../data/repositories/patient_repository.dart';
 
-class PatientViewModel extends ChangeNotifier {
+class HomeViewModel extends ChangeNotifier {
   final PatientRepository _repo = PatientRepository();
 
   bool _isLoading = false;
@@ -21,7 +21,7 @@ class PatientViewModel extends ChangeNotifier {
   String _searchQuery = "";
   String get searchQuery => _searchQuery;
 
-  String _sortBy = "Name"; // default
+  String _sortBy = "Name"; 
   String get sortBy => _sortBy;
 
   Future<void> loadPatients({bool refresh = false}) async {
@@ -89,7 +89,7 @@ class PatientViewModel extends ChangeNotifier {
       list.sort((a, b) {
         final aDate = _parseDate(a.dateNdTime);
         final bDate = _parseDate(b.dateNdTime);
-        return bDate.compareTo(aDate); // newest first
+        return bDate.compareTo(aDate);
       });
     }
 

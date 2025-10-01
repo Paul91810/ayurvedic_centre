@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import '../../core/api_client.dart';
 import '../models/login_model.dart';
@@ -13,6 +15,7 @@ class AuthRepository {
       });
 
       final response = await _dio.post("Login", data: formData);
+      log(response.data.toString());
 
       if (response.data is Map<String, dynamic>) {
         return LoginModel.fromJson(response.data);

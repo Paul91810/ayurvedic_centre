@@ -1,4 +1,5 @@
-// lib/views/patient/register_patient_screen.dart
+// lib/view/register_patient_screen.dart
+import 'package:ayurvedic_centre/view/receiptscreen.dart';
 import 'package:ayurvedic_centre/view_models/register_patient_viewmoidel.dart';
 import 'package:ayurvedic_centre/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,6 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../widgets/custom_button.dart';
 
-// model aliasing (to avoid Branches name clash)
 import 'package:ayurvedic_centre/data/models/branch_list.dart' as branch_model;
 import 'package:ayurvedic_centre/data/models/treatment_list.dart'
     as treatment_model;
@@ -33,9 +33,11 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
   @override
   void initState() {
     super.initState();
-    final vm = Provider.of<RegisterPatientViewModel>(context, listen: false);
-    vm.fetchBranches();
-    vm.fetchTreatments();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final vm = Provider.of<RegisterPatientViewModel>(context, listen: false);
+      vm.fetchBranches();
+      vm.fetchTreatments();
+    });
   }
 
   @override
@@ -56,7 +58,25 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
     final vm = Provider.of<RegisterPatientViewModel>(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Register Patient")),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: const Text(
+          "Register Patient",
+          style: TextStyle(color: Colors.black),
+        ),
+        centerTitle: true,
+        elevation: 0,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.notifications, color: Colors.black),
+            onPressed: () {},
+          ),
+        ],
+      ),
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -64,7 +84,6 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Name
               CustomTextField(
                 controller: nameCtrl,
                 label: "Name",
@@ -72,8 +91,6 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                     (v == null || v.trim().isEmpty) ? "Enter name" : null,
               ),
               const SizedBox(height: 12),
-
-              // Executive
               CustomTextField(
                 controller: execCtrl,
                 label: "Executive",
@@ -81,8 +98,6 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                     (v == null || v.trim().isEmpty) ? "Enter executive" : null,
               ),
               const SizedBox(height: 12),
-
-              // Phone
               CustomTextField(
                 controller: phoneCtrl,
                 label: "Phone",
@@ -91,8 +106,6 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                     (v == null || v.trim().isEmpty) ? "Enter phone" : null,
               ),
               const SizedBox(height: 12),
-
-              // Address
               CustomTextField(
                 controller: addressCtrl,
                 label: "Address",
@@ -101,9 +114,10 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
               ),
               const SizedBox(height: 12),
 
-              // Location (static)
+              // Location dropdown
               DropdownButtonFormField<String>(
                 value: vm.selectedLocation,
+                isExpanded: true,
                 items: vm.locations.map<DropdownMenuItem<String>>((loc) {
                   return DropdownMenuItem<String>(value: loc, child: Text(loc));
                 }).toList(),
@@ -112,11 +126,12 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
               ),
               const SizedBox(height: 12),
 
-              // Branch
+              // Branch dropdown
               vm.isLoadingBranches
                   ? const Center(child: CircularProgressIndicator())
                   : DropdownButtonFormField<String>(
                       value: vm.selectedBranchId,
+                      isExpanded: true,
                       items: vm.branches.map<DropdownMenuItem<String>>((
                         branch_model.Branches b,
                       ) {
@@ -130,7 +145,6 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                     ),
               const SizedBox(height: 16),
 
-              // Payment option (ChoiceChips style)
               const Text(
                 "Payment Option",
                 style: TextStyle(fontWeight: FontWeight.bold),
@@ -149,7 +163,6 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
               ),
               const SizedBox(height: 16),
 
-              // Date & Time pickers (Treatment date/time)
               const Text(
                 "Treatment Date & Time",
                 style: TextStyle(fontWeight: FontWeight.bold),
@@ -196,7 +209,6 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
               ),
               const SizedBox(height: 16),
 
-              // Treatments header + Add button
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -212,7 +224,6 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                 ],
               ),
 
-              // Selected Treatments list
               Column(
                 children: vm.selectedTreatments.map((t) {
                   return Card(
@@ -233,8 +244,6 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
               ),
 
               const SizedBox(height: 12),
-
-              // Amount fields
               CustomTextField(
                 controller: totalCtrl,
                 label: "Total Amount",
@@ -268,25 +277,51 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
               ),
               const SizedBox(height: 20),
 
-              // Save
               CustomButton(
                 text: "Save",
                 loading: vm.isLoading,
                 onPressed: () async {
                   if (!_formKey.currentState!.validate()) return;
 
-                  // Ensure required selections
                   if (vm.selectedBranchId == null ||
                       vm.selectedBranchId!.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Please select branch")),
+                      const SnackBar(content: Text("Please select a branch")),
                     );
                     return;
                   }
+
                   if (vm.paymentMode == null || vm.paymentMode!.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                        content: Text("Please select payment option"),
+                        content: Text("Please select a payment option"),
+                      ),
+                    );
+                    return;
+                  }
+
+                  if (vm.selectedDate == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Please pick a treatment date"),
+                      ),
+                    );
+                    return;
+                  }
+
+                  if (vm.selectedTime == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Please pick a treatment time"),
+                      ),
+                    );
+                    return;
+                  }
+
+                  if (vm.selectedTreatments.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Please add at least one treatment"),
                       ),
                     );
                     return;
@@ -296,7 +331,6 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                     context: context,
                     name: nameCtrl.text.trim(),
                     executive: execCtrl.text.trim(),
-                    payment: vm.paymentMode ?? "",
                     phone: phoneCtrl.text.trim(),
                     address: addressCtrl.text.trim(),
                     totalAmount: double.tryParse(totalCtrl.text) ?? 0,
@@ -306,10 +340,48 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                   );
 
                   if (success) {
-                    Navigator.pop(context, true); // go back to previous screen
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => ReceiptScreen(
+                          name: nameCtrl.text.trim(),
+                          phone: phoneCtrl.text.trim(),
+                          address: addressCtrl.text.trim(),
+                          branch:
+                              vm.branches
+                                  .firstWhere(
+                                    (b) =>
+                                        b.id?.toString() == vm.selectedBranchId,
+                                    orElse: () =>
+                                        branch_model.Branches(name: "-"),
+                                  )
+                                  .name ??
+                              "-",
+                          payment: vm.paymentMode ?? "",
+                          dateTime:
+                              "${DateFormat("dd/MM/yyyy").format(vm.selectedDate!)} - ${vm.selectedTime!.format(context)}",
+                          treatments: vm.selectedTreatments
+                              .map(
+                                (t) => {
+                                  "name": t.name,
+                                  "male": t.male,
+                                  "female": t.female,
+                                  "price":
+                                      0, // TODO: replace with actual price if available
+                                },
+                              )
+                              .toList(),
+                          total: double.tryParse(totalCtrl.text) ?? 0,
+                          discount: double.tryParse(discountCtrl.text) ?? 0,
+                          advance: double.tryParse(advanceCtrl.text) ?? 0,
+                          balance: double.tryParse(balanceCtrl.text) ?? 0,
+                        ),
+                      ),
+                    );
                   }
                 },
               ),
+
               const SizedBox(height: 20),
             ],
           ),
@@ -342,28 +414,25 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                       )
                     : DropdownButtonFormField<int>(
                         value: selectedTreatmentId,
-                        isExpanded: true, // ✅ fix overflow
+                        isExpanded: true,
                         items: vm.treatments.map<DropdownMenuItem<int>>((
                           treatment_model.Treatments t,
                         ) {
                           return DropdownMenuItem<int>(
                             value: t.id,
                             child: Text(
-                              "${t.name} ${t.price != null ? " (₹${t.price})" : ""}",
+                              "${t.name}${t.price != null ? " (₹${t.price})" : ""}",
                               overflow: TextOverflow.ellipsis,
                             ),
                           );
                         }).toList(),
-                        onChanged: (v) =>
-                            setState(() => selectedTreatmentId = v),
                         decoration: const InputDecoration(
                           labelText: "Select Treatment",
                         ),
+                        onChanged: (v) =>
+                            setState(() => selectedTreatmentId = v),
                       ),
-
                 const SizedBox(height: 16),
-
-                // male counter
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -385,10 +454,7 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                     ),
                   ],
                 ),
-
                 const SizedBox(height: 8),
-
-                // female counter
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -423,7 +489,7 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                 onPressed: () {
                   if (selectedTreatmentId != null) {
                     final t = vm.treatments.firstWhere(
-                      (t) => t.id == selectedTreatmentId,
+                      (el) => el.id == selectedTreatmentId,
                     );
                     vm.addTreatment(
                       t.id!,
