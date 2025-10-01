@@ -50,12 +50,4 @@ captures/
 # Windows
 Thumbs.db
 
-# Linux
-*~
-
-# Hive database files (if you want to ignore local user data, uncomment below)
-# *.hive
-# *.lock
-
-# Generated JSON model files (optional, if you auto-generate)
 *.g.dart

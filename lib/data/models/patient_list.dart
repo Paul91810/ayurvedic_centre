@@ -1,11 +1,11 @@
-class PatientList {
+class PatientListModel {
   bool? status;
   String? message;
   List<Patient>? patient;
 
-  PatientList({this.status, this.message, this.patient});
+  PatientListModel({this.status, this.message, this.patient});
 
-  PatientList.fromJson(Map<String, dynamic> json) {
+  PatientListModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
     if (json['patient'] != null) {

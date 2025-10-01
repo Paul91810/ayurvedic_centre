@@ -1,6 +1,7 @@
 import 'package:ayurvedic_centre/view/login_screen.dart';
 import 'package:ayurvedic_centre/view_models/login_viewmodel.dart';
 import 'package:ayurvedic_centre/view_models/patient_viewmodel.dart';
+import 'package:ayurvedic_centre/view_models/register_patient_viewmoidel.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ChangeNotifierProvider(create: (_) => LoginViewModel()),
         ChangeNotifierProvider(create: (_) => PatientViewModel()),
+        ChangeNotifierProvider(create: (_) => RegisterPatientViewModel()),
       ],
       child: Consumer<ThemeProvider>(
         builder: (context, themeProv, _) {

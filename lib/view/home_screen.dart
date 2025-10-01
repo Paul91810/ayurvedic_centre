@@ -1,3 +1,4 @@
+import 'package:ayurvedic_centre/view/regisetr_patient_screen.dart';
 import 'package:ayurvedic_centre/view_models/patient_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -128,10 +129,10 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(builder: (_) => const RegisterPatientScreen()),
-          // );
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const RegisterPatientScreen()),
+          );
         },
         icon: const Icon(Icons.add),
         label: const Text("Register Now"),
