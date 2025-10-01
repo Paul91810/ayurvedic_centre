@@ -1,13 +1,14 @@
+import 'package:ayurvedic_centre/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
     primarySwatch: Colors.green,
-    scaffoldBackgroundColor: Colors.white,
+    scaffoldBackgroundColor: AppColors.backgroundLight,
     appBarTheme: const AppBarTheme(
-      backgroundColor: Colors.green,
-      foregroundColor: Colors.white,
+      backgroundColor: AppColors.appBarLight,
+      foregroundColor: AppColors.textDark,
       elevation: 0,
     ),
     inputDecorationTheme: InputDecorationTheme(
@@ -15,8 +16,8 @@ class AppTheme {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.green,
-        foregroundColor: Colors.white,
+        backgroundColor: AppColors.primary,
+        foregroundColor: AppColors.textDark,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         minimumSize: const Size(double.infinity, 50),
       ),
@@ -26,10 +27,10 @@ class AppTheme {
   static ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
     primarySwatch: Colors.green,
-    scaffoldBackgroundColor: Colors.black,
+    scaffoldBackgroundColor: AppColors.backgroundDark,
     appBarTheme: const AppBarTheme(
-      backgroundColor: Colors.black,
-      foregroundColor: Colors.green,
+      backgroundColor: AppColors.appBarDark,
+      foregroundColor: AppColors.primary,
       elevation: 0,
     ),
     inputDecorationTheme: InputDecorationTheme(
@@ -37,8 +38,8 @@ class AppTheme {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.green,
-        foregroundColor: Colors.white,
+        backgroundColor: AppColors.primary,
+        foregroundColor: AppColors.textDark,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         minimumSize: const Size(double.infinity, 50),
       ),

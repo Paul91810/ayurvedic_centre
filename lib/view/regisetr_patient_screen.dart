@@ -1,6 +1,7 @@
 import 'package:ayurvedic_centre/view/receiptscreen.dart';
 import 'package:ayurvedic_centre/view_models/register_patient_viewmoidel.dart';
 import 'package:ayurvedic_centre/widgets/custom_text_field.dart';
+import 'package:ayurvedic_centre/widgets/page_transitions.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -112,7 +113,6 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                     (v == null || v.trim().isEmpty) ? "Enter address" : null,
               ),
               const SizedBox(height: 12),
-
               DropdownButtonFormField<String>(
                 value: vm.selectedLocation,
                 isExpanded: true,
@@ -123,8 +123,6 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                 decoration: const InputDecoration(labelText: "Location"),
               ),
               const SizedBox(height: 12),
-
-              // Branch dropdown
               vm.isLoadingBranches
                   ? const Center(child: CircularProgressIndicator())
                   : DropdownButtonFormField<String>(
@@ -142,7 +140,6 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                       decoration: const InputDecoration(labelText: "Branch"),
                     ),
               const SizedBox(height: 16),
-
               const Text(
                 "Payment Option",
                 style: TextStyle(fontWeight: FontWeight.bold),
@@ -160,7 +157,6 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                 }).toList(),
               ),
               const SizedBox(height: 16),
-
               const Text(
                 "Treatment Date & Time",
                 style: TextStyle(fontWeight: FontWeight.bold),
@@ -206,7 +202,6 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                 ],
               ),
               const SizedBox(height: 16),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -221,7 +216,6 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                   ),
                 ],
               ),
-
               Column(
                 children: vm.selectedTreatments.map((t) {
                   return Card(
@@ -240,7 +234,6 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                   );
                 }).toList(),
               ),
-
               const SizedBox(height: 12),
               CustomTextField(
                 controller: totalCtrl,
@@ -274,7 +267,6 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                     (v == null || v.trim().isEmpty) ? "Enter balance" : null,
               ),
               const SizedBox(height: 20),
-
               CustomButton(
                 text: "Save",
                 loading: vm.isLoading,
@@ -338,15 +330,14 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                   );
 
                   if (success) {
-                    Navigator.pushReplacement(
+                    Navigator.push(
                       context,
-                      MaterialPageRoute(
-                        builder: (_) => ReceiptScreen(
+                      AppPageTransition.slideUp(
+                        ReceiptScreen(
                           name: nameCtrl.text.trim(),
                           phone: phoneCtrl.text.trim(),
                           address: addressCtrl.text.trim(),
-                          branch:
-                              vm.branches
+                          branch: vm.branches
                                   .firstWhere(
                                     (b) =>
                                         b.id?.toString() == vm.selectedBranchId,
@@ -379,7 +370,6 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                   }
                 },
               ),
-
               const SizedBox(height: 20),
             ],
           ),
@@ -462,9 +452,8 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                         IconButton(
                           icon: const Icon(Icons.remove_circle_outline),
                           onPressed: () => setState(
-                            () => femaleCount = femaleCount > 0
-                                ? femaleCount - 1
-                                : 0,
+                            () => femaleCount =
+                                femaleCount > 0 ? femaleCount - 1 : 0,
                           ),
                         ),
                         Text("$femaleCount"),

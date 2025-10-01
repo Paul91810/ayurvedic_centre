@@ -11,7 +11,7 @@ class PatientListModel {
     if (json['patient'] != null) {
       patient = <Patient>[];
       json['patient'].forEach((v) {
-        patient!.add(new Patient.fromJson(v));
+        patient!.add( Patient.fromJson(v));
       });
     }
   }
