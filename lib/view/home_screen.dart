@@ -99,6 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         (patientVM.isLoading ? 1 : 0),
                     itemBuilder: (context, index) {
                       if (index < patientVM.patients.length) {
+                        final number=index+1;
                         final p = patientVM.patients[index];
                         return Card(
                           margin: const EdgeInsets.only(bottom: 12),
@@ -110,21 +111,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Text(
                                   (p.name == null || p.name!.isEmpty)
                                       ? "Unknown Patient"
-                                      : p.name!,
+                                      : "$number. ${p.name!}",
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
                                   ),
                                 ),
                                 Text("Phone: ${p.phone ?? "-"}"),
-                                Text("Payment: ${p.payment ?? "-"}"),
-                                Text("Total: ₹${p.totalAmount ?? 0}"),
-                                Text(
-                                  "Balance: ₹${p.balanceAmount ?? 0}",
-                                  style: const TextStyle(color: Colors.red),
-                                ),
-                                Text(
-                                  "Date: ${patientVM.formatDate(p.dateNdTime)}",
+                                Text("Address: ${p.address ?? "-"}"),
+                                SizedBox(height: 5),
+                                Align(
+                                  alignment: Alignment.bottomRight,
+                                  child: Text(
+                                    "Date: ${patientVM.formatDate(p.dateNdTime)}",
+                                  ),
                                 ),
                               ],
                             ),

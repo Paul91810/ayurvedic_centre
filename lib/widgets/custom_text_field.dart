@@ -30,7 +30,6 @@ class CustomTextField extends StatelessWidget {
       textInputAction: textInputAction,
       onEditingComplete: onEditingComplete ??
           () {
-            // default: move to next field
             if (textInputAction == TextInputAction.next) {
               FocusScope.of(context).nextFocus();
             }

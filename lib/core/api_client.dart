@@ -1,4 +1,3 @@
-// lib/core/api_client.dart
 import 'package:dio/dio.dart';
 import 'package:hive/hive.dart';
 

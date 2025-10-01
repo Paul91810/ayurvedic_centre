@@ -1,4 +1,3 @@
-// lib/data/repositories/patient_update_repository.dart
 import 'dart:developer';
 import 'package:dio/dio.dart';
 import '../../core/api_client.dart';
@@ -26,7 +25,6 @@ class PatientUpdateRepository {
         return {"status": false, "message": "Unexpected server response"};
       }
     } on DioException catch (e) {
-      // try to return server message when available
       final data = e.response?.data;
       if (data is Map<String, dynamic> && data.containsKey('message')) {
         return {"status": false, "message": data['message']};

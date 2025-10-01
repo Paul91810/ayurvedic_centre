@@ -1,4 +1,3 @@
-// lib/view/register_patient_screen.dart
 import 'package:ayurvedic_centre/view/receiptscreen.dart';
 import 'package:ayurvedic_centre/view_models/register_patient_viewmoidel.dart';
 import 'package:ayurvedic_centre/widgets/custom_text_field.dart';
@@ -114,7 +113,6 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
               ),
               const SizedBox(height: 12),
 
-              // Location dropdown
               DropdownButtonFormField<String>(
                 value: vm.selectedLocation,
                 isExpanded: true,

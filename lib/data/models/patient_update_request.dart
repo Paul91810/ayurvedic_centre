@@ -1,4 +1,3 @@
-// lib/data/models/patient_update_request.dart
 class PatientUpdateRequest {
   String name;
   String excecutive;
@@ -9,12 +8,12 @@ class PatientUpdateRequest {
   double discountAmount;
   double advanceAmount;
   double balanceAmount;
-  String dateNdTime; // "dd/MM/yyyy-hh:mm AM"
-  int? id; // null for new record -> will be sent as ""
-  String male; // "2,3" or "" if none
-  String female; // "4,5" or "" if none
-  int branch; // branch id (int)
-  String treatments; // "2,3,4" or ""
+  String dateNdTime; 
+  int? id; 
+  String male; 
+  String female; 
+  int branch; 
+  String treatments; 
 
   PatientUpdateRequest({
     required this.name,
@@ -46,11 +45,11 @@ class PatientUpdateRequest {
     "advance_amount": advanceAmount.toInt(),
     "balance_amount": balanceAmount.toInt(),
     "date_nd_time": dateNdTime,
-    "id": id == null ? "" : id.toString(),   // 🔥 FIXED
-    "male": male.isEmpty ? "" : male,        // 🔥 FIXED (string, comma separated)
-    "female": female.isEmpty ? "" : female,  // 🔥 FIXED
-    "branch": branch,                        // int is OK
-    "treatments": treatments.isEmpty ? "" : treatments, // 🔥 FIXED
+    "id": id == null ? "" : id.toString(),  
+    "male": male.isEmpty ? "" : male,        
+    "female": female.isEmpty ? "" : female,  
+    "branch": branch,                        
+    "treatments": treatments.isEmpty ? "" : treatments, 
   };
 }
 

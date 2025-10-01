@@ -35,7 +35,6 @@ class ReceiptScreen extends StatelessWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            // Watermark logo
             Positioned.fill(
               child: Opacity(
                 opacity: 0.08,
