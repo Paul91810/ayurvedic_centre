@@ -1,3 +1,4 @@
+import 'package:ayurvedic_centre/core/constants/app_size.dart';
 import 'package:flutter/material.dart';
 
 class ReceiptScreen extends StatelessWidget {
@@ -31,7 +32,7 @@ class ReceiptScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+   
       body: SafeArea(
         child: Stack(
           children: [
@@ -71,11 +72,11 @@ class ReceiptScreen extends StatelessWidget {
                   ),
                   const Divider(thickness: 1),
 
-                  const SizedBox(height: 10),
+                  AppSize.kHeight10,
                   const Text("Patient Details",
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                  const SizedBox(height: 8),
+                   AppSize.kHeight10,
                   _buildDetailRow("Name", name),
                   _buildDetailRow("Phone", phone),
                   _buildDetailRow("Address", address),
@@ -84,11 +85,11 @@ class ReceiptScreen extends StatelessWidget {
                   _buildDetailRow("Date & Time", dateTime),
                   const Divider(thickness: 1),
 
-                  const SizedBox(height: 10),
+                  AppSize.kHeight10,
                   const Text("Treatments",
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                  const SizedBox(height: 8),
+                   AppSize.kHeight10,
 
                   Table(
                     border: TableBorder.all(color: Colors.grey.shade300),
@@ -100,7 +101,7 @@ class ReceiptScreen extends StatelessWidget {
                     },
                     children: [
                       const TableRow(
-                        decoration: BoxDecoration(color: Color(0xFFE8F5E9)),
+                        
                         children: [
                           Padding(
                               padding: EdgeInsets.all(8),
@@ -144,7 +145,7 @@ class ReceiptScreen extends StatelessWidget {
                       }).toList(),
                     ],
                   ),
-                  const SizedBox(height: 20),
+                   AppSize.kHeight20,
 
                   Align(
                     alignment: Alignment.centerRight,
@@ -159,7 +160,7 @@ class ReceiptScreen extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(height: 30),
+                  AppSize.kHeight30,
                   const Divider(),
                   const Center(
                     child: Text(

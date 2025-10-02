@@ -1,3 +1,4 @@
+import 'package:ayurvedic_centre/core/constants/app_size.dart';
 import 'package:ayurvedic_centre/view_models/login_viewmodel.dart';
 import 'package:ayurvedic_centre/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class LoginScreen extends StatelessWidget {
           child: ListView(
             children: [
               Image.asset("assets/Frame 176.png", fit: BoxFit.fill),
-              const SizedBox(height: 30),
+               AppSize.kHeight30,
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
@@ -34,20 +35,20 @@ class LoginScreen extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    const SizedBox(height: 20),
+                     AppSize.kHeight20,
                     CustomTextField(
                       controller: loginVM.usernameController,
                       label: "Username",
                       validator: loginVM.validateUsername,
                     ),
-                    const SizedBox(height: 20),
+                    AppSize.kHeight20,
                     CustomTextField(
                       controller: loginVM.passwordController,
                       label: "Password",
                       obscureText: true,
                       validator: loginVM.validatePassword,
                     ),
-                    const SizedBox(height: 25),
+                     AppSize.kHeight30,
                     CustomButton(
                       text: "Login",
                       loading: loginVM.isLoading,
@@ -58,7 +59,7 @@ class LoginScreen extends StatelessWidget {
                         }
                       },
                     ),
-                    SizedBox(height: 10),
+                     AppSize.kHeight10,
                     Text(
                       "By Creating or Logging into an account, you Agreeing with our  Terms and Conditions and Privacy Policy",
                       textAlign: TextAlign.center,

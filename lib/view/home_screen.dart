@@ -47,10 +47,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return ResponsiveScaffold(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
+         
           actions: [
             IconButton(
-              icon: const Icon(Icons.notifications, color: Colors.black),
+              icon: const Icon(Icons.notifications,),
               onPressed: () {
                 Navigator.pop(context);
               },

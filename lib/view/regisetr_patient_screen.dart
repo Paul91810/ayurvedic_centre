@@ -1,3 +1,4 @@
+import 'package:ayurvedic_centre/core/constants/app_size.dart';
 import 'package:ayurvedic_centre/view/receiptscreen.dart';
 import 'package:ayurvedic_centre/view_models/register_patient_viewmoidel.dart';
 import 'package:ayurvedic_centre/widgets/custom_text_field.dart';
@@ -59,20 +60,17 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context),
-        ),
-        title: const Text(
-          "Register Patient",
-          style: TextStyle(color: Colors.black),
         ),
         centerTitle: true,
         elevation: 0,
         actions: [
           IconButton(
-            icon: const Icon(Icons.notifications, color: Colors.black),
+            icon: const Icon(
+              Icons.notifications,
+            ),
             onPressed: () {},
           ),
         ],
@@ -84,20 +82,23 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const Text("Register Patient",style: TextStyle(fontSize: 20),),
+              Divider(),
+              AppSize.kHeight10,
               CustomTextField(
                 controller: nameCtrl,
                 label: "Name",
                 validator: (v) =>
                     (v == null || v.trim().isEmpty) ? "Enter name" : null,
               ),
-              const SizedBox(height: 12),
+               AppSize.kHeight10,
               CustomTextField(
                 controller: execCtrl,
                 label: "Executive",
                 validator: (v) =>
                     (v == null || v.trim().isEmpty) ? "Enter executive" : null,
               ),
-              const SizedBox(height: 12),
+              AppSize.kHeight10,
               CustomTextField(
                 controller: phoneCtrl,
                 label: "Phone",
@@ -105,14 +106,14 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                 validator: (v) =>
                     (v == null || v.trim().isEmpty) ? "Enter phone" : null,
               ),
-              const SizedBox(height: 12),
+               AppSize.kHeight10,
               CustomTextField(
                 controller: addressCtrl,
                 label: "Address",
                 validator: (v) =>
                     (v == null || v.trim().isEmpty) ? "Enter address" : null,
               ),
-              const SizedBox(height: 12),
+              AppSize.kHeight10,
               DropdownButtonFormField<String>(
                 value: vm.selectedLocation,
                 isExpanded: true,
@@ -122,7 +123,7 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                 onChanged: (v) => vm.setLocation(v),
                 decoration: const InputDecoration(labelText: "Location"),
               ),
-              const SizedBox(height: 12),
+              AppSize.kHeight10,
               vm.isLoadingBranches
                   ? const Center(child: CircularProgressIndicator())
                   : DropdownButtonFormField<String>(
@@ -139,12 +140,12 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                       onChanged: vm.setBranch,
                       decoration: const InputDecoration(labelText: "Branch"),
                     ),
-              const SizedBox(height: 16),
+               AppSize.kHeight20,
               const Text(
                 "Payment Option",
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 8),
+              AppSize.kHeight10,
               Wrap(
                 spacing: 8,
                 children: ["Cash", "Card", "UPI"].map((opt) {
@@ -156,12 +157,12 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                   );
                 }).toList(),
               ),
-              const SizedBox(height: 16),
+              AppSize.kHeight20,
               const Text(
                 "Treatment Date & Time",
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 8),
+               AppSize.kHeight10,
               Row(
                 children: [
                   Expanded(
@@ -182,7 +183,7 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 12),
+                 AppSize.kHeight10,
                   Expanded(
                     child: OutlinedButton(
                       onPressed: () async {
@@ -201,7 +202,7 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                   ),
                 ],
               ),
-              const SizedBox(height: 16),
+              AppSize.kHeight20,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -234,7 +235,7 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                   );
                 }).toList(),
               ),
-              const SizedBox(height: 12),
+              AppSize.kHeight10,
               CustomTextField(
                 controller: totalCtrl,
                 label: "Total Amount",
@@ -242,7 +243,7 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                 validator: (v) =>
                     (v == null || v.trim().isEmpty) ? "Enter total" : null,
               ),
-              const SizedBox(height: 12),
+               AppSize.kHeight10,
               CustomTextField(
                 controller: discountCtrl,
                 label: "Discount Amount",
@@ -250,7 +251,7 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                 validator: (v) =>
                     (v == null || v.trim().isEmpty) ? "Enter discount" : null,
               ),
-              const SizedBox(height: 12),
+               AppSize.kHeight10,
               CustomTextField(
                 controller: advanceCtrl,
                 label: "Advance Amount",
@@ -258,7 +259,7 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                 validator: (v) =>
                     (v == null || v.trim().isEmpty) ? "Enter advance" : null,
               ),
-              const SizedBox(height: 12),
+               AppSize.kHeight10,
               CustomTextField(
                 controller: balanceCtrl,
                 label: "Balance Amount",
@@ -266,7 +267,7 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                 validator: (v) =>
                     (v == null || v.trim().isEmpty) ? "Enter balance" : null,
               ),
-              const SizedBox(height: 20),
+               AppSize.kHeight20,
               CustomButton(
                 text: "Save",
                 loading: vm.isLoading,
@@ -370,7 +371,7 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                   }
                 },
               ),
-              const SizedBox(height: 20),
+              AppSize.kHeight20,
             ],
           ),
         ),
@@ -420,7 +421,7 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                         onChanged: (v) =>
                             setState(() => selectedTreatmentId = v),
                       ),
-                const SizedBox(height: 16),
+                 AppSize.kHeight20,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -442,7 +443,7 @@ class _RegisterPatientScreenState extends State<RegisterPatientScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 8),
+                 AppSize.kHeight10,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
